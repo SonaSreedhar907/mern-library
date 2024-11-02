@@ -1,6 +1,8 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
+import authRoutes from './routes/auth.route.js'
+// import userRoutes from './routes/user.route.js'
 
 dotenv.config();
 
@@ -14,9 +16,13 @@ mongoose.connect(process.env.MONGO)
 const app = express()
 
 
-app.listen(3000, () => {
+app.use(express.json())
+
+
+app.listen(3002, () => {
     console.log('server is running on port 3000..')
 })
 
 
-// mongodb+srv://sona:sona@cluster0.kryhn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+// app.use('/api/user', userRoutes)
+app.use('/api/auth', authRoutes)
