@@ -98,7 +98,7 @@ export default function SignUp() {
               </label>
               <input
                 type="password"
-                placeholder="Password"
+                placeholder="******"
                 id="password"
                 className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
                 onChange={handleChange}
