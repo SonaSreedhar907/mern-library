@@ -37,6 +37,11 @@ const postSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    rentedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User', 
+      default: null 
+    },
   },
   { timestamps: true }
 );

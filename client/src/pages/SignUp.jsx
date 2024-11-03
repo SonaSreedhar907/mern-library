@@ -59,7 +59,7 @@ export default function SignUp() {
             Library
           </Link>
           <p className="text-sm mt-4 text-gray-600">
-            This is a demo project. You can sign up with your email and password or with Google.
+            This is a demo project. You can sign up with your email and password.
           </p>
         </div>
 

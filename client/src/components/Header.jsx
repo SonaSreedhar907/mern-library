@@ -1,30 +1,27 @@
 import { Link, useLocation } from 'react-router-dom';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { FaMoon } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { signoutSuccess } from '../redux/user/userSlice';
 
 export default function Header() {
   const path = useLocation().pathname;
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const handleSignout = async() => {
+  const handleSignout = async () => {
     try {
-      const res = await fetch('/api/user/signout',{
-        method : 'POST',
-      })
-      const data = await res.json()
-      console.log('data is ',data)
-      if(!res.ok){
-        console.log(data.message)
-      }else{
+      const res = await fetch('/api/user/signout', {
+        method: 'POST',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
         dispatch(signoutSuccess());
       }
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
   };
 
@@ -35,26 +32,9 @@ export default function Header() {
         <Link to="/" className="text-xl font-bold text-indigo-600">
           Sona's Library
         </Link>
-        
-        {/* Search Bar (hidden on smaller screens) */}
-        <div className="hidden lg:flex items-center">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="border rounded-lg px-3 py-1 mr-2"
-          />
-          <button className="text-gray-600">
-            <AiOutlineSearch />
-          </button>
-        </div>
 
-        {/* User and Theme Toggle */}
+        {/* User Dropdown */}
         <div className="flex items-center space-x-4">
-          <button className="hidden sm:inline text-gray-600">
-            <FaMoon />
-          </button>
-          
-          {/* User Dropdown */}
           {currentUser ? (
             <div className="relative inline-block text-left">
               <button
@@ -107,8 +87,8 @@ export default function Header() {
           <Link to="/about" className={`text-gray-600 ${path === '/about' ? 'font-bold' : ''}`}>
             About
           </Link>
-          <Link to="/projects" className={`text-gray-600 ${path === '/projects' ? 'font-bold' : ''}`}>
-            Projects
+          <Link to="/return" className={`text-gray-600 ${path === '/return' ? 'font-bold' : ''}`}>
+            Return
           </Link>
         </div>
       </nav>

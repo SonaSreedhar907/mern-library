@@ -12,9 +12,9 @@ export default function FooterCom() {
               className='self-center whitespace-nowrap text-lg sm:text-xl font-semibold dark:text-white'
             >
               <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>
-                Sahand's
+                Sona's
               </span>
-              Blog
+              Library
             </Link>
           </div>
           <div className='grid grid-cols-2 gap-8 mt-4 sm:grid-cols-3 sm:gap-6'>
@@ -81,10 +81,10 @@ export default function FooterCom() {
             </div>
           </div>
         </div>
-        <div className='border-t border-gray-200 my-6' />
+        {/* <div className='border-t border-gray-200 my-6' />
         <div className='flex flex-col sm:flex-row justify-between items-center'>
           <p className='text-gray-600'>
-            &copy; {new Date().getFullYear()} Sahand's Blog
+            &copy; {new Date().getFullYear()} S
           </p>
           <div className='flex gap-6 mt-4 sm:mt-0'>
             <a href='#' className='text-gray-600 hover:text-teal-500'>
@@ -108,7 +108,7 @@ export default function FooterCom() {
               <BsDribbble size={24} />
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
     </footer>
   );

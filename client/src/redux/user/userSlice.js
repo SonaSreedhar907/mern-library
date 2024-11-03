@@ -4,6 +4,7 @@ const initialState = {
   currentUser: null,
   error: null,
   loading: false,
+  rentedBooks: []
 };
 
 const userSlice = createSlice({
@@ -54,6 +55,9 @@ const userSlice = createSlice({
       state.error = null;
       state.loading = false;
     },
+    rentBook: (state,action)=>{
+      state.rentedBooks.push(action.payload)
+    }
   },
 });
 
@@ -68,6 +72,7 @@ export const {
   deleteUserSuccess,
   deleteUserFailure,
   signoutSuccess,
+  rentBook
 } = userSlice.actions;
 
 export default userSlice.reducer;
