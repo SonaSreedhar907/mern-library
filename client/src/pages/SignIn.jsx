@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -8,10 +8,15 @@ import {
 } from '../redux/user/userSlice';
 
 export default function SignIn() {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const { loading, error: errorMessage } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Reset loading and error on component mount
+    dispatch(signInFailure(null));
+  }, [dispatch]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
@@ -22,19 +27,19 @@ export default function SignIn() {
     if (!formData.email || !formData.password) {
       return dispatch(signInFailure('Please fill all the fields'));
     }
+    
+    dispatch(signInStart());
     try {
-      dispatch(signInStart());
       const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      if (data.success === false) {
-        dispatch(signInFailure(data.message));
-      }
 
-      if (res.ok) {
+      if (!res.ok) {
+        dispatch(signInFailure(data.message || 'Sign in failed.'));
+      } else {
         dispatch(signInSuccess(data));
         navigate('/');
       }
@@ -46,20 +51,18 @@ export default function SignIn() {
   return (
     <div className='min-h-screen mt-20'>
       <div className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5'>
-        {/* Left Section */}
         <div className='flex-1'>
           <Link to='/' className='font-bold text-4xl'>
             <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>
-              Sahand's
+              Sona's
             </span>
-            Blog
+            Library
           </Link>
           <p className='text-sm mt-5'>
             This is a demo project. You can sign in with your email and password
             or with Google.
           </p>
         </div>
-        {/* Right Section */}
         <div className='flex-1'>
           <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
             <div>
@@ -70,6 +73,7 @@ export default function SignIn() {
                 id='email'
                 onChange={handleChange}
                 className='mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-purple-500'
+                required
               />
             </div>
             <div>
@@ -80,6 +84,7 @@ export default function SignIn() {
                 id='password'
                 onChange={handleChange}
                 className='mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-purple-500'
+                required
               />
             </div>
             <button
@@ -95,7 +100,6 @@ export default function SignIn() {
                 'Sign In'
               )}
             </button>
-
           </form>
           <div className='flex gap-2 text-sm mt-5'>
             <span>Don't have an account?</span>
