@@ -5,6 +5,8 @@ import SignUp from './pages/SignUp';
 import SignIn from './pages/signIn';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Dashboard from './pages/Dashboard';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
@@ -15,6 +17,9 @@ function App() {
       <Route path='/about' element={<About />} />
       <Route path="/sign-in" element={<SignIn />} />
       <Route path='/sign-up' element={<SignUp />} />
+      <Route element={<PrivateRoute/>}>
+      <Route path='/dashboard' element={<Dashboard />} />
+      </Route>
       </Routes>
       <Footer/>
     </BrowserRouter>
