@@ -1,9 +1,11 @@
 import { HiUser, HiArrowSmRight } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function DashSidebar() {
   const location = useLocation();
+  const { currentUser } = useSelector((state) => state.user); // Moved useSelector outside useEffect
   const [tab, setTab] = useState('');
 
   useEffect(() => {
@@ -24,7 +26,9 @@ export default function DashSidebar() {
             }`}
           >
             <HiUser className="mr-2" size={20} />
-            <span>Profile</span>
+            <span>
+              {currentUser?.isAdmin ? 'Admin' : 'User'} Profile
+            </span>
           </div>
         </Link>
         <div
